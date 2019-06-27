@@ -1,5 +1,5 @@
 """
-This script uses Helium to automatically start Chrome and navigate to localhost:1331, and it then selects the 'Try Me!!!!!!' button.
+This script uses Helium to automatically start Chrome and navigate to localhost:1313, and it then selects the 'Try Me!!!!!!' button.
 After which it checks to see if the string 'Welcome to my World!' exists.
 
 If all goes well, it prints "Test passed!". Otherwise, it prints "Test failed :(".
