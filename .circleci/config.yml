@@ -1,0 +1,44 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+      - image: selenium/standalone-chrome:3.141.59-radium
+      #- image: selenium/standalone-chrome:3.1.0
+    steps:
+      - checkout
+      - run:
+          name: Code has arrived!
+          command: |
+            ls -l
+            echo 'Does this look familiar?'
+            echo 'This is the delivery pipeline'
+      - run:
+          name: Update
+          command: sudo apt-get update
+      - run:
+          name: Download Hugo
+          command: wget https://github.com/spf13/hugo/releases/download/v0.14/hugo_0.14_amd64.deb
+      - run:
+          name: Install Hugo
+          command: sudo dpkg -i hugo*.deb  && hugo version && ls -l
+      - run:
+          name: Install python
+          command: sudo apt-get install -y python && python --version
+      - run:
+          name: Download Helium
+          command: wget https://www.dropbox.com/s/nx12d36ohc9il6k/helium-python-2.0.3-linux.zip?dl=0
+      - run:
+          name: Unzip Helium
+          command: mv helium-python-2.0.3-linux.zip?dl=0 helium-python-2.0.3-linux.zip && unzip helium-python-2.0.3-linux.zip
+      - run:
+          name: Set Path for Helium
+          command: echo 'export PYTHONPATH="/helium-python-2.0.3/heliumlib:$PYTHONPATH"' >> ~/.bashrc
+      - run:
+          name: Run Hugo
+          command: hugo server --watch --renderToDisk &
+      - run:
+          name: Hugo service
+          command: exit
+      #- run:
+      #    name: Change dir and run test
+      #    command: cd test/ && pwd && sudo ./run.sh
